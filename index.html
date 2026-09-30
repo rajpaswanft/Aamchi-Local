@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mumbai Local</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Mumbai Local</h1>
+  <div class="top-actions">
+    <label class="btn ghost" title="Load your own JSON (stations, trains, schedules)">
+      Load JSON <input type="file" id="jsonFile" accept=".json,application/json" hidden>
+    </label>
+    <button class="btn ghost" id="themeBtn" aria-label="Toggle dark mode">Dark</button>
+  </div>
+</header>
+
+<p class="banner" id="banner" hidden></p>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" class="tab on" data-tab="route">Find trains</button>
+  <button role="tab" class="tab" data-tab="board">Station board</button>
+</nav>
+
+<main>
+  <!-- ROUTE SEARCH -->
+  <section id="route" class="panel">
+    <div class="card search">
+      <div class="fields">
+        <label>From <input id="from" list="stationList" placeholder="Station name or code" autocomplete="off"></label>
+        <label>To <input id="to" list="stationList" placeholder="Station name or code" autocomplete="off"></label>
+      </div>
+      <button class="swap" id="swap" aria-label="Swap stations">&#8645;</button>
+    </div>
+
+    <div class="row">
+      <select id="when" aria-label="When">
+        <option value="now">Leaving now</option>
+        <option value="all">Whole day</option>
+        <option value="first">First train</option>
+        <option value="last">Last train</option>
+      </select>
+      <button class="btn" id="saveFav">&#9733; Save route</button>
+    </div>
+
+    <div class="chips" id="filters">
+      <button class="chip" data-f="fast">Fast only</button>
+      <button class="chip" data-f="ac">AC only</button>
+      <button class="chip" data-f="ladies">Ladies special</button>
+      <button class="chip" data-f="peak">Peak hours</button>
+    </div>
+
+    <div id="favs" class="chips small"></div>
+    <div id="recents" class="chips small"></div>
+
+    <div id="results" aria-live="polite"></div>
+  </section>
+
+  <!-- STATION BOARD -->
+  <section id="board" class="panel" hidden>
+    <div class="card search">
+      <label>Station <input id="boardStation" list="stationList" placeholder="Station name or code" autocomplete="off"></label>
+    </div>
+    <div class="row">
+      <select id="boardDir" aria-label="Direction">
+        <option value="all">Up &amp; Down</option>
+        <option value="down">Down (away from city)</option>
+        <option value="up">Up (towards city)</option>
+      </select>
+      <select id="boardLine" aria-label="Line"><option value="all">All lines</option></select>
+    </div>
+    <div id="boardList" aria-live="polite"></div>
+  </section>
+</main>
+
+<datalist id="stationList"></datalist>
+<script src="app.js"></script>
+</body>
+</html>
